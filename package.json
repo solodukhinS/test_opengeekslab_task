@@ -1,0 +1,23 @@
+{
+  "name": "recipes",
+  "version": "1.0.0",
+  "description": "API for recipes",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Soloduhin S.",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^16.0.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mysql-migrations": "^1.0.6",
+    "mysql2": "^1.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2",
+    "swagger-ui-express": "^4.1.0"
+  }
+}

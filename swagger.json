@@ -1,0 +1,443 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Test task for Open Geeks Lab"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Articles",
+      "description": "API for articles manipulation"
+    },
+    {
+      "name": "Categories",
+      "description": "API for categories manipulation"
+    },
+    {
+      "name": "Recipes",
+      "description": "API for recipes manipulation"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/article": {
+      "post": {
+        "tags": ["Articles"],
+        "description": "Create new article in system",
+        "parameters": [
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get all articles in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Articles"
+            }
+          }
+        }
+      }
+    },
+    "/article/:id": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get article by id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Article id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Articles"],
+        "summary": "Update article by id",
+        "parameters": [
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Articles"],
+        "summary": "Delete article by id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Article id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        }
+      }
+    },
+    "/article/category/:id": {
+      "get": {
+        "tags": ["Articles"],
+        "summary": "Get all categories with nesting by article id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Article id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CategoryWithTree"
+            }
+          }
+        }
+      }
+    },
+    "/category/:id": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get all categories with child nesting by category id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Category id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CategoryWithChild"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Categories"],
+        "summary": "Update category by id",
+        "parameters": [
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Category id",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Categories"],
+        "summary": "Delete category by id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Category id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/category": {
+      "post": {
+        "tags": ["Categories"],
+        "description": "Create new category in system",
+        "parameters": [
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        }
+      }
+    },
+    "/category/articles/:id": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get all articles for current category and nested categories",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Category id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Articles"
+            }
+          }
+        }
+      }
+    },
+    "/category/recipes/:id": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get all recipes for current category and nested categories",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Category id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Recipes"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Article": {
+      "required": ["name", "id_category"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "id_category": {
+          "type": "number"
+        }
+      }
+    },
+    "Category": {
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "id_parent": {
+          "type": "number"
+        }
+      }
+    },
+    "CategoryWithParent": {
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "id_parent": {
+          "type": "number"
+        },
+        "parent": {
+          "type": "object",
+          "$ref": "#/definitions/CategoryWithParent"
+        }
+      }
+    },
+    "CategoryWithTree": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "id_parent": {
+          "type": "number"
+        },
+        "caregoriesTree": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CategoryWithParent"
+          }
+        }
+      }
+    },
+    "CategoryWithChild": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "id_parent": {
+          "type": "number"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CategoryWithChild"
+          }
+        }
+      }
+    },
+    "Articles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/Article"
+      }
+    },
+    "Categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/Category"
+      }
+    },
+    "Recipe": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "text": {
+          "type": "string"
+        },
+        "id_category": {
+          "type": "number"
+        }
+      }
+    },
+    "Recipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/Recipe"
+      }
+    },
+    "Success": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
