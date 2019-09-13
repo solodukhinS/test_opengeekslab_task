@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_recipes
+    ports:
+      - 3300:3306
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 6080:8080
