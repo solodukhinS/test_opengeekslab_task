@@ -10,7 +10,6 @@ From database folder
 For editional info read the docs
 
 ### Instalation
-`cd web`
 `npm install`
 `npm install nodemon -g`
-`nodemon`
+`npm start`
