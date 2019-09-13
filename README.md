@@ -10,6 +10,6 @@ From database folder
 For editional info read the docs
 
 ### Instalation
-`npm install`
-`npm install nodemon -g`
-`npm start`
+ - `npm install`
+ - `npm install nodemon -g`
+ - `npm start`
