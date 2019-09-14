@@ -2,6 +2,7 @@ const Router = require('express').Router();
 const Controller = require('./Controller');
 
 Router.post('/', Controller.create);
+Router.get('/', Controller.getAll);
 Router.get('/:id', Controller.getById);
 Router.get('/articles/:id', Controller.getArticlesById);
 Router.get('/recipes/:id', Controller.getRecipesById);

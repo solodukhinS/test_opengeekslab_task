@@ -27,7 +27,7 @@
     "/article": {
       "post": {
         "tags": ["Articles"],
-        "description": "Create new article in system",
+        "description": "Create new article in database",
         "parameters": [
           {
             "name": "",
@@ -49,7 +49,29 @@
       },
       "get": {
         "tags": ["Articles"],
-        "summary": "Get all articles in system",
+        "summary": "Get all articles from database",
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "Limit of returned records (if empty, the value is 20)",
+            "in": "query",
+            "schema": {
+              "limit": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "offset",
+            "description": "Offset for skip records (if empty, the valus is 0)",
+            "in": "query",
+            "schema": {
+              "limit": {
+                "type": "number"
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -90,6 +112,16 @@
         "summary": "Update article by id",
         "parameters": [
           {
+            "name": "id",
+            "description": "Article id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          },
+          {
             "name": "",
             "in": "body",
             "schema": {
@@ -101,7 +133,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Article"
+              "$ref": "#/definitions/Success"
             }
           }
         }
@@ -125,7 +157,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Article"
+              "$ref": "#/definitions/Success"
             }
           }
         }
@@ -152,6 +184,64 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/CategoryWithTree"
+            }
+          }
+        }
+      }
+    },
+    "/category": {
+      "post": {
+        "tags": ["Categories"],
+        "description": "Create new category in database",
+        "parameters": [
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get all categories from database",
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "Limit of returned records (if empty, the value is 20)",
+            "in": "query",
+            "schema": {
+              "limit": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "offset",
+            "description": "Offset for skip records (if empty, the valus is 0)",
+            "in": "query",
+            "schema": {
+              "limit": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Categories"
             }
           }
         }
@@ -187,18 +277,18 @@
         "summary": "Update category by id",
         "parameters": [
           {
-            "name": "",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Category"
-            }
-          },
-          {
             "name": "id",
             "in": "path",
             "description": "Category id",
             "schema": {
               "type": "number"
+            }
+          },
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Category"
             }
           }
         ],
@@ -231,30 +321,6 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Success"
-            }
-          }
-        }
-      }
-    },
-    "/category": {
-      "post": {
-        "tags": ["Categories"],
-        "description": "Create new category in system",
-        "parameters": [
-          {
-            "name": "",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Category"
-            }
-          }
-        ],
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Category"
             }
           }
         }
@@ -307,6 +373,171 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Recipes"
+            }
+          }
+        }
+      }
+    },
+    "/recipe": {
+      "post": {
+        "tags": ["Recipes"],
+        "description": "Create new recipe in database",
+        "parameters": [
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Recipe"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Recipe"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Recipes"],
+        "summary": "Get all recipes from database",
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "Limit of returned records (if empty, the value is 20)",
+            "in": "query",
+            "schema": {
+              "limit": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "offset",
+            "description": "Offset for skip records (if empty, the valus is 0)",
+            "in": "query",
+            "schema": {
+              "limit": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Recipes"
+            }
+          }
+        }
+      }
+    },
+    "/recipe/:id": {
+      "get": {
+        "tags": ["Recipes"],
+        "summary": "Get recipe by id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Recipe id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Recipe"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Recipes"],
+        "summary": "Update recipe by id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Recipe id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Recipe"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Recipes"],
+        "summary": "Delete recipe by id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Recipe id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/recipe/category/:id": {
+      "get": {
+        "tags": ["Recipes"],
+        "summary": "Get all categories with nesting by recipe id",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Recipe id",
+            "in": "path",
+            "schema": {
+              "id": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CategoryWithTree"
             }
           }
         }

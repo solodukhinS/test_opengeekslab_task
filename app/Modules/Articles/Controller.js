@@ -28,11 +28,27 @@ module.exports = {
       res.status(500).send({ error: E.message });
     }
   },
+  getAll: async (req, res) => {
+    const limit = req.query.limit ? +req.query.limit : 20;
+    const offset = req.query.offset ? +req.query.offset : 0;
+    try {
+      const [data] = await connection.promise().query(
+        `
+        SELECT * FROM articles LIMIT ?,?
+      `,
+        [offset, limit]
+      );
+      res.send(data);
+    } catch (E) {
+      res.status(500).send({ error: E.message });
+    }
+  },
+
   getById: async (req, res) => {
     try {
       const [[data]] = await connection.promise().query(
         `
-        SELECT * from articles WHERE id=?
+        SELECT * FROM articles WHERE id=?
       `,
         [req.params.id]
       );
@@ -64,26 +80,26 @@ module.exports = {
 
       const { name, description, text, id_category } = req.body;
 
-      const [data] = await connection.promise().query(
+      await connection.promise().query(
         `
           UPDATE articles SET name=?, description=?, text=?, id_category=? WHERE id=?
         `,
         [name, description, text, id_category, req.params.id]
       );
-      res.send(data);
+      res.send({ success: true });
     } catch (E) {
       res.status(500).send({ error: E.message });
     }
   },
   delete: async (req, res) => {
     try {
-      const [data] = await connection.promise().query(
+      await connection.promise().query(
         `
           DELETE FROM articles WHERE id=?
         `,
         [req.params.id]
       );
-      res.send(data);
+      res.send({ success: true });
     } catch (E) {
       res.status(500).send({ error: E.message });
     }

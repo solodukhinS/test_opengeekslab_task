@@ -21,6 +21,21 @@ module.exports = {
       res.status(500).send({ error: E.message });
     }
   },
+  getAll: async (req, res) => {
+    const limit = req.query.limit ? +req.query.limit : 20;
+    const offset = req.query.offset ? +req.query.offset : 0;
+    try {
+      const [data] = await connection.promise().query(
+        `
+        SELECT * FROM categories LIMIT ?,?
+      `,
+        [offset, limit]
+      );
+      res.send(data);
+    } catch (E) {
+      res.status(500).send({ error: E.message });
+    }
+  },
   getById: async (req, res) => {
     try {
       const [[category]] = await connection
@@ -84,7 +99,7 @@ module.exports = {
 
       const { name, id_parent } = req.body;
 
-      const [data] = await connection.promise().query(
+      await connection.promise().query(
         `
           UPDATE categories SET name=?, id_parent=? WHERE id=?
         `,
@@ -97,7 +112,7 @@ module.exports = {
   },
   delete: async (req, res) => {
     try {
-      const [data] = await connection.promise().query(
+      await connection.promise().query(
         `
           DELETE FROM categories WHERE id=?
         `,
